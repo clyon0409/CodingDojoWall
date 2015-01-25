@@ -26,7 +26,7 @@
 <?php 
 			foreach ($_SESSION['messages'] as $index=>$post)
 			{
-				echo '<h4>'.$post['owner'].' - '.$post['date'].'</h4>';
+				echo '<h4>'.$post['owner'].' - '.$post['post_date'].'</h4>';
 				echo '<div class="msg_par">'.$post['content'].'</div>';
 
 				echo "<form class='comment' action='add_content.php' method='post'>";

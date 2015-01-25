@@ -4,6 +4,7 @@
 	session_start();
 
 	require_once('new-connection.php');
+	include_once('add_content.php');
 
 	if(isset($_POST['action']) && $_POST['action'] === 'register')
 	{
@@ -17,25 +18,23 @@
 		{
 			$query = "INSERT INTO users (first_name, last_name, email, password, created_at, updated_at) VALUES ('{$_POST["first_name"]}','{$_POST["last_name"]}','{$_POST["email"]}','{$_POST["password"]}',NOW(),NOW())";
 			run_mysql_query($query);
-
 			login_user($_POST);
-			header('location:wall.php');
-			die();
 		}
 	}
 	elseif(isset($_POST['action']) && $_POST['action'] === 'login')
 	{
 		validate_login($_POST);
 
-		if(count($_SESSION['errors']) > 0){
-			header('location:index.php');
-			die();
+		if(isset($_SESSION['erros'])){
+			if(count($_SESSION['errors']) > 0)
+			{
+				header('location:index.php');
+				die();
+			}
 		}
 		else
 		{
 			login_user($_POST);
-			header('location:wall.php');
-			die();
 		}
 	}
 	else //user must want to log off
@@ -85,7 +84,7 @@
 
 	function validate_login($post)
 	{
-		var_dump('validate login');
+		//var_dump('validate login');
 
 		if(!filter_var($post['email'], FILTER_VALIDATE_EMAIL))
 		{
@@ -97,7 +96,7 @@
 			$_SESSION['errors']['login_password'] = "Please enter your password";
 		}
 
-		var_dump($_SESSION['errors']);
+		//var_dump($_SESSION['errors']);
 	}
 
 	function login_user($post)
@@ -108,6 +107,11 @@
 			$_SESSION['first_name'] = $record['first_name'];
 			$_SESSION['last_name'] = $record['last_name'];
 
-			var_dump($_SESSION);
+			pack_messages();  //grab content from database and shove in $_SESSION for access 
+			// var_dump('messages');
+			// var_dump($_SESSION['messages']);
+
+			header('location:wall.php');
+			die();
 	}
 	?>

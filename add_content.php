@@ -1,7 +1,9 @@
 <?php
-	session_start();
-
-	require('new-connection.php');
+	
+	if (session_id()  == ''){
+		session_start();	
+		require('new-connection.php');
+	}
 
 	// var_dump($_POST);
 	// var_dump($_SESSION);
@@ -13,9 +15,9 @@
 			$query = "INSERT INTO messages (message, users_id, created_at, updated_at ) VALUES ('{$_POST["message_text"]}',{$_SESSION['user_id']}, NOW(),NOW())"; 
 			var_dump($query);
 			run_mysql_query($query);
-			// pack_messages();
-			// header('location:wall.php');
-			// die();
+			pack_messages();
+			header('location:wall.php');
+			die();
 		}
 	}
 
@@ -23,6 +25,8 @@
 	{
 		if(!empty($_POST['comment_text']))
 		{
+
+			var_dump($_POST);
 			//$query = "INSERT INTO messages (message, users_id, created_at, updated_at ) VALUES ('{$_POST["message_text"]}',{$_SESSION['user_id']}, NOW(),NOW())"; 
 			// var_dump($query);
 			// run_mysql_query($query);
@@ -45,8 +49,11 @@
 
 		foreach($data as $index=>$post)
 		{
+			// var_dump('post');
+			// var_dump($post);
 			$_SESSION['messages'][$index]['owner']= $post['first_name'].' '.$post['last_name'];
 			$_SESSION['messages'][$index]['post_date']= date('F jS Y',strtotime($post['created_at']));
+			$_SESSION['messages'][$index]['id']=$post['id'];
 			$_SESSION['messages'][$index]['content']=$post['message'];
 		}
 	}
