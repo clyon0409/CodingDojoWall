@@ -1,0 +1,37 @@
+#container {
+	padding: 25px;
+	margin: 0px auto;
+	width: 700px;
+}
+
+form {
+	width: 680px;
+}
+
+label{
+	display: block;
+	width: 680px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+input {	width: 200px;
+		margin-left: 131px;}
+
+.name {margin-left: 119px;}
+
+.email{margin-left: 151px;}
+
+.pass {margin-left: 129px;}
+
+#confirm{margin-left: 70px;}
+
+.button{width: 70px;
+		margin-left: 333px;}
+
+.error {
+		color: red;
+		font-size: 12px;
+		width:200px;
+		display:inline-block;
+}

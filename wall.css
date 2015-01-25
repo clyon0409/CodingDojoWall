@@ -1,0 +1,82 @@
+#wrapper {	width:970px;
+			padding: 0px;
+			margin: 0px auto;
+}
+
+#header{
+		width: 970px;
+		height: 50px;
+		border-bottom: 2px solid black;
+}
+
+#header h3, #header p{
+		display:inline-block;
+		vertical-align: bottom;
+		height: 20px;
+}
+
+#header h3{width: 350px;}
+
+#header p{
+			width: 125px;
+		  	margin-left: 313px
+}
+
+#header a{
+		display:inline-block;
+		height: 20px;
+		width: 170px;
+		vertical-align: top;
+		margin-top: 21px;
+}
+
+.message {margin-left: 50px;}
+.message p, .message textarea {
+	width: 857px;
+}
+
+.message p{ height: 10px;}
+
+.message textarea{ 
+		height: 60px;
+		border: 2px solid black;}
+
+.message input{ margin-left: 752px;}
+
+.message_area {
+		width: 857px;
+		margin-left: 50px;
+}
+
+.message_area h4{ 
+		height: 20px;
+		padding: 5px;
+}
+
+.message_area h5{ 
+		margin-left: 40px;
+		font-size: 15px;}
+
+.comment {margin-left: 50px;
+		  width: 800px;}
+
+.comment p, .comment textarea {
+	width: 800px;
+}
+
+.comment p{ height: 10px;}
+
+.comment textarea{ 
+		height: 60px;
+		border: 2px solid black;}
+
+.comment input{ margin-left: 693px;}
+
+.msg_par, .cmt_par{
+		height: 125px;
+		margin-left: 20px;
+		overflow-y: auto;
+}
+
+.msg_par{margin-left: 20px;}
+.cmt_par{margin-left: 50px;}
