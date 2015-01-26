@@ -37,6 +37,12 @@
 						{
 							echo '<h5>'.$record['owner'].' - '.$record['post_date'].'</h5>';
 							echo '<div class="cmt_par">'.$record['content'].'</div>';
+							echo "<form class='comment' action='add_content.php' method='post'>";
+							echo "<input type='submit' name='delete' value='Delete'>";
+
+							$val = 'delete_comment'. ' '.$record['message_id'].' '.$record['comment_id'];
+							echo "<input type='hidden' name='action' value='$val'>";
+							echo "</form>";
 						}
 					}
 				}
