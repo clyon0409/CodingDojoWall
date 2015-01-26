@@ -1,81 +1,87 @@
 <?php
 	
 	// --------------------------This script handles all the content on the wall ---------------------//
-	if (session_id()  == ''){
+	if (session_id()  == '')
+	{
 		session_start();	
 		require('new-connection.php');
 	}
 
-	// var_dump($_POST);
+	//var_dump($_POST);
 	// var_dump($_SESSION);
 
-	if($_POST['action'] == 'post_message')
-	{
-		if(!empty($_POST['message_text']))
+	if(!empty($_POST)){
+		if($_POST['action'] == 'post_message')
 		{
-			$text = str_replace("'", "\'", $_POST['message_text']);
-			$query = "INSERT INTO messages (message, users_id, created_at, updated_at ) VALUES ('$text',{$_SESSION['user_id']}, NOW(),NOW())"; 
-			//var_dump($query);
-			run_mysql_query($query);
-			pack_messages_and_display();
-		}
-	}
-
-	if(strpos($_POST['action'],'delete_message') !== FALSE)
-	{
-		var_dump('user wants to delete a message');
-		$temp=explode(' ', $_POST['action']);
-		$user_id=intval($temp[1]);
-		$msg_id=intval($temp[2]);
-		var_dump($user_id);
-		var_dump($msg_id);
-
-		if($user_id == $_SESSION['user_id'])
-		{
-			if(count($_SESSION['comments'][$msg_id]) > 0)
+			if(!empty($_POST['message_text']))
 			{
-				$query = "DELETE FROM comments WHERE comments.users_id=$user_id AND comments.messages_id=$msg_id";
+				$text = str_replace("'", "\'", $_POST['message_text']);
+				$query = "INSERT INTO messages (message, users_id, created_at, updated_at ) VALUES ('$text',{$_SESSION['user_id']}, NOW(),NOW())"; 
 				//var_dump($query);
 				run_mysql_query($query);
+				pack_messages_and_display();
+			}
+		}
+
+		if(strpos($_POST['action'],'delete_message') !== FALSE)
+		{
+			$temp=explode(' ', $_POST['action']);
+			$user_id=intval($temp[1]);
+			$msg_id=intval($temp[2]);
+			
+			if($user_id == $_SESSION['user_id'])
+			{
+				if(count($_SESSION['comments'][$msg_id]) > 0)
+				{
+					$query = "DELETE FROM comments WHERE comments.users_id=$user_id AND comments.messages_id=$msg_id";
+					//var_dump($query);
+					run_mysql_query($query);
+				}
+
+				$query = "DELETE FROM messages WHERE messages.users_id=$user_id AND messages.id=$msg_id";
+				//var_dump($query);
+				run_mysql_query($query);
+				pack_messages_and_display();
+			}	
+
+			header('location:wall.php');
+			die();
+		}
+
+		if(strpos($_POST['action'],'post_comment') !== FALSE)
+		{
+			//var_dump('got post comment directive');
+			$temp = explode(' ',$_POST['action']);
+			$msg_id = intval($temp[1]);
+			if(!empty($_POST['comment_text']))
+			{
+				$text = str_replace("'", "\'", $_POST['comment_text']);
+				$query = "INSERT INTO comments (messages_id, users_id, comment, created_at, updated_at ) VALUES ( $msg_id, {$_SESSION['user_id']},'$text', NOW(),NOW())"; 
+				run_mysql_query($query);
+				pack_messages_and_display();
+			}
+		}
+
+		if(strpos($_POST['action'],'delete_comment') !== FALSE)
+		{
+			$temp=explode(' ', $_POST['action']);
+			$user_id=intval($temp[1]);
+			$msg_id=intval($temp[2]);
+			$cmt_id=intval($temp[3]);
+			//var_dump($user_id);
+			// var_dump($msg_id);
+			// var_dump($cmt_id);
+
+			if($user_id == $_SESSION['user_id'])
+			{
+				$query = "DELETE FROM comments WHERE comments.messages_id=$msg_id AND comments.id = $cmt_id";
+				// var_dump($query);
+				run_mysql_query($query);
+				pack_messages_and_display();
 			}
 
-			$query = "DELETE FROM messages WHERE messages.users_id=$user_id AND messages.id=$msg_id";
-			//var_dump($query);
-			run_mysql_query($query);
-		}	pack_messages_and_display();
-		
-	}
-
-	if(strpos($_POST['action'],'post_comment') !== FALSE)
-	{
-		//var_dump('got post comment directive');
-		$temp = explode(' ',$_POST['action']);
-		$msg_id = intval($temp[1]);
-		if(!empty($_POST['comment_text']))
-		{
-			$text = str_replace("'", "\'", $_POST['comment_text']);
-			$query = "INSERT INTO comments (messages_id, users_id, comment, created_at, updated_at ) VALUES ( $msg_id, {$_SESSION['user_id']},'$text', NOW(),NOW())"; 
-			run_mysql_query($query);
-			pack_messages_and_display();
-		}
-	}
-
-	if(strpos($_POST['action'],'delete_comment') !== FALSE)
-	{
-		$temp=explode(' ', $_POST['action']);
-		$user_id=intval($temp[1]);
-		$msg_id=intval($temp[2]);
-		$cmt_id=intval($temp[3]);
-		//var_dump($user_id);
-		// var_dump($msg_id);
-		// var_dump($cmt_id);
-
-		if($user_id == $_SESSION['user_id'])
-		{
-			$query = "DELETE FROM comments WHERE comments.messages_id=$msg_id AND comments.id = $cmt_id";
-			// var_dump($query);
-			run_mysql_query($query);
-			pack_messages_and_display();
+			header('location:wall.php');
+			die();
 		}
 	}
 
