@@ -18,8 +18,8 @@
 #header h3{width: 350px;}
 
 #header p{
-			width: 125px;
-		  	margin-left: 313px
+			width: 165px;
+		  	margin-left: 277px
 }
 
 #header a{
@@ -73,7 +73,7 @@
 .comment input{ margin-left: 693px;}
 
 .msg_par, .cmt_par{
-		height: 125px;
+		height: 100px;
 		margin-left: 20px;
 		overflow-y: auto;
 }

@@ -29,22 +29,26 @@
 				echo '<h4>'.$post['owner'].' - '.$post['post_date'].'</h4>';
 				echo '<div class="msg_par">'.$post['content'].'</div>';
 
+				if(isset($_SESSION['comments'][$post['id']]))
+				{
+					if (count($_SESSION['comments'][$post['id']]) > 0)
+					{
+						foreach ($_SESSION['comments'][$post['id']] as $key=>$record)
+						{
+							echo '<h5>'.$record['owner'].' - '.$record['post_date'].'</h5>';
+							echo '<div class="cmt_par">'.$record['content'].'</div>';
+						}
+					}
+				}
 				echo "<form class='comment' action='add_content.php' method='post'>";
 					echo "<p>Post a comment</p>";
 					echo "<textarea name='comment_text'></textarea>";
 					echo "<input type='submit' name='comment' value='Post a comment'>";
-					echo "<input type='hidden' name='action' value='post_comment'>";
+					$val='post_comment '.$post['id'];
+					echo "<input type='hidden' name='action' value='$val'>";
 				echo "</form>";
 			}
 ?>
-			<h5>Michael Choi - Feb 5rd 2015 </h4>
-			<div class='cmt_par'>Kramer: [in the sauna]: It's like a sauna in here. George: For me to ask a woman out, I've got to get into a mental state like the karate guys before they break the bricks. Jerry: I don’t get you. Who goes on vacation without a job? What, do you need a break from getting up at 11:00. Kramer: I've cut slices so thin, I couldn't even see them. Elaine: How'd you know you cut it? Kramer: Well, I guess I just assumed? George: The sea was angry that day, my friends. Like an old man trying to send back soup in a deli.</div>
-			<form class='comment' action='add_content.php' method='post'>
-				<p>Post a comment</p>
-				<textarea name='comment_text'></textarea>
-				<input type='submit' name='comment' value='Post a comment'>
-				<input type='hidden' name='action' value='post_comment'>
-			</form>
 		</div>
 	</div>
 </body>>
