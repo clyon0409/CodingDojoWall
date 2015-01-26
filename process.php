@@ -107,11 +107,8 @@
 			$_SESSION['first_name'] = $record['first_name'];
 			$_SESSION['last_name'] = $record['last_name'];
 
-			pack_messages();  //grab content from database and shove in $_SESSION for access 
+			pack_messages_and_display();  //grab content from database and shove in $_SESSION for access 
 			// var_dump('messages');
 			// var_dump($_SESSION['messages']);
-
-			header('location:wall.php');
-			die();
 	}
 	?>
