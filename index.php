@@ -23,7 +23,7 @@
 					}
 ?>
 				</label> 
-				<label>Password: <input class='pass' type='text' name='password'>
+				<label>Password: <input class='pass' type='password' name='password'>
 <?php 				if(!empty($_SESSION['errors']['login_password']))
 					{
 						echo '<p class="error">'.$_SESSION['errors']['login_password'].'</p>';
@@ -68,7 +68,7 @@
 					}
 ?>
 				</label>
-				<label>Password: <input class='pass' type='text' name='password'>
+				<label>Password: <input class='pass' type='password' name='password'>
 <?php 				if(!empty($_SESSION['errors']['password']))
 					{
 						echo '<p class="error">'.$_SESSION['errors']['password'].'</p>';
@@ -76,7 +76,7 @@
 					}
 ?>
 				</label>
-				<label>Confirm Password: <input id='confirm' type='text' name='confirm_password'>
+				<label>Confirm Password: <input id='confirm' type='password' name='confirm_password'>
 <?php 				if(!empty($_SESSION['errors']['confirm']))
 					{
 						echo '<p class="error">'.$_SESSION['errors']['confirm'].'</p>';
