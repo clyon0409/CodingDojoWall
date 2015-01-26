@@ -80,3 +80,17 @@
 
 .msg_par{margin-left: 20px;}
 .cmt_par{margin-left: 50px;}
+
+.delete_button {
+		background-color: Violet;
+}
+
+.comment_button {
+		background-color: MediumSeaGreen;
+		color:white;
+}
+
+.message_button{
+		background-color: CornflowerBlue;
+		color: white;
+}
