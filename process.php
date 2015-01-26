@@ -16,7 +16,11 @@
 		}
 		else
 		{
-			$query = "INSERT INTO users (first_name, last_name, email, password, created_at, updated_at) VALUES ('{$_POST["first_name"]}','{$_POST["last_name"]}','{$_POST["email"]}','{$_POST["password"]}',NOW(),NOW())";
+			$esc_first_name = escape_this_string($_POST["first_name"]);
+			$esc_last_name = escape_this_string($_POST["last_name"]);
+			$esc_email = escape_this_string($_POST["email"]);
+			$esc_password = escape_this_string($_POST["password"]);
+			$query = "INSERT INTO users (first_name, last_name, email, password, created_at, updated_at) VALUES ('$esc_first_name','$esc_last_name','$esc_email','$esc_password',NOW(),NOW())";
 			run_mysql_query($query);
 			login_user($_POST);
 		}

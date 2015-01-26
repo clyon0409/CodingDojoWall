@@ -16,7 +16,8 @@
 			if(!empty($_POST['message_text']))
 			{
 				$text = str_replace("'", "\'", $_POST['message_text']);
-				$query = "INSERT INTO messages (message, users_id, created_at, updated_at ) VALUES ('$text',{$_SESSION['user_id']}, NOW(),NOW())"; 
+				$esc_text = escape_this_string($text);
+				$query = "INSERT INTO messages (message, users_id, created_at, updated_at ) VALUES ('$esc_text',{$_SESSION['user_id']}, NOW(),NOW())"; 
 				//var_dump($query);
 				run_mysql_query($query);
 				pack_messages_and_display();
@@ -56,7 +57,8 @@
 			if(!empty($_POST['comment_text']))
 			{
 				$text = str_replace("'", "\'", $_POST['comment_text']);
-				$query = "INSERT INTO comments (messages_id, users_id, comment, created_at, updated_at ) VALUES ( $msg_id, {$_SESSION['user_id']},'$text', NOW(),NOW())"; 
+				$esc_text = escape_this_string($text);
+				$query = "INSERT INTO comments (messages_id, users_id, comment, created_at, updated_at ) VALUES ( $msg_id, {$_SESSION['user_id']},'$esc_text', NOW(),NOW())"; 
 				run_mysql_query($query);
 				pack_messages_and_display();
 			}
